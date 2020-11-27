@@ -9,12 +9,21 @@ import (
 
 type ProductBuilder struct {}
 
-
 func (*ProductBuilder) FetchProductsResponse(data interface{}) (interface{}, error){
 	var out *proto.FetchProductsResponse
 	err := mapstructure.Decode(data, &out)
 	if err != nil {
 		return nil, errors.New("ProductBuilder.FetchProductResponse : Failed decode response : " + err.Error())
+	}
+
+	return out, nil
+}
+
+func (*ProductBuilder) FindProductByIdResponse(data interface{}) (interface{}, error){
+	var out *proto.FindProductByIdResponse
+	err := mapstructure.Decode(data, &out)
+	if err != nil {
+		return nil, errors.New("ProductBuilder.FindProductByIdResponse : Failed decode response : " + err.Error())
 	}
 
 	return out, nil

@@ -17,6 +17,15 @@ message fetchProductsResponse {
   repeated product products = 1;
 }
 
+message findProductByIdRequest {
+  string  id = 1;
+}
+
+message findProductByIdResponse {
+  product product = 1;
+}
+
 service ProductService {
   rpc FetchProducts(empty) returns (fetchProductsResponse);
+  rpc FindProductById(findProductByIdRequest) returns (findProductByIdResponse);
 }

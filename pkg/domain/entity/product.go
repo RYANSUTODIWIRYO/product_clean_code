@@ -1,13 +1,21 @@
 package entity
 
 type Product struct {
-	ID		string
+	Id		string
 	Name	string
 	Price	float64
-	Stok	int
+	Stock	int
 }
 
 
 type FetchProductsResponse struct {
 	Products []*Product
+}
+
+type FindProductByIdRequest struct {
+	Id		string
+}
+
+type FindProductByIdResponse struct {
+	Product *Product
 }

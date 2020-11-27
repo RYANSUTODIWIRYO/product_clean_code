@@ -1,7 +1,11 @@
 package repository
 
 import (
+	"errors"
+
 	"github.com/product/pkg/domain/entity"
+
+	"github.com/mitchellh/mapstructure"
 )
 
 type ProductRepo struct {
@@ -12,22 +16,22 @@ func NewProductRepo() *ProductRepo {
 	var data entity.FetchProductsResponse
 	products := make([]*entity.Product, 0)
 	products = append(products, &entity.Product{
-		ID:		"001",
+		Id:		"001",
 		Name:	"mouse",
 		Price:	200000.00,
-		Stok:	10,
+		Stock:	10,
 	})
 	products = append(products, &entity.Product{
-		ID:		"002",
+		Id:		"002",
 		Name:	"keyboard",
 		Price:	1000000.00,
-		Stok:	5,
+		Stock:	5,
 	})
 	products = append(products, &entity.Product{
-		ID:		"003",
+		Id:		"003",
 		Name:	"monitor",
 		Price:	3000000.00,
-		Stok:	3,
+		Stock:	3,
 	})
 
 	data.Products = products
@@ -45,3 +49,25 @@ func (pr *ProductRepo) FetchProducts() (interface{}, error) {
 	return out, nil
 }
 
+func (pr *ProductRepo) FindProductById(data interface{}) (interface{}, error) {
+	if data == nil {
+		return nil, errors.New("Product(Repo).FindProductById : Request Body is Nil")
+	}
+
+	var request *entity.FindProductByIdRequest
+	err := mapstructure.Decode(data, &request)
+	if err != nil {
+		return nil, errors.New("Product(Repo).FindProductById : Failed to Decode Request Body : " + err.Error())
+	}
+
+	var out entity.FindProductByIdResponse
+	
+	for _, product := range pr.data.Products {
+		if request.Id == product.Id {
+			out.Product = product
+			break
+		}
+	}
+	
+	return out, nil
+}

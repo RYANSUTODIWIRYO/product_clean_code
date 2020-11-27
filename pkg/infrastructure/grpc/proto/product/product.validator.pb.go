@@ -34,3 +34,11 @@ func (this *FetchProductsResponse) Validate() error {
 func (this *FindProductByIdRequest) Validate() error {
 	return nil
 }
+func (this *FindProductByIdResponse) Validate() error {
+	if this.Product != nil {
+		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.Product); err != nil {
+			return github_com_mwitkow_go_proto_validators.FieldError("Product", err)
+		}
+	}
+	return nil
+}
