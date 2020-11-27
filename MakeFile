@@ -1,0 +1,13 @@
+clean:
+	@echo "--- Cleanup all build and generated files ---"
+	@rm -vf pkg/infrastructure/grpc/proto/product/*.pb.go
+
+protoc: clean
+	@echo "--- Preparing proto output directories ---"
+	@mkdir -p pkg/infrastructure/grpc/proto/product
+	@echo "--- Compiling all proto files ---"
+	@cd ./pkg/shared/proto/product && protoc -I. --go_out=plugins=grpc:../../../infrastructure/grpc/proto/product --govalidators_out=../../../infrastructure/grpc/proto/product *.proto
+
+run:
+	@echo "-- running grpc server in dev mode --"
+	@go run ./cmd/server/grpc/main.go
