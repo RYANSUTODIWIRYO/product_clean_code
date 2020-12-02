@@ -7,7 +7,6 @@ type Product struct {
 	Stock	int
 }
 
-
 type FetchProductsResponse struct {
 	Products []*Product
 }

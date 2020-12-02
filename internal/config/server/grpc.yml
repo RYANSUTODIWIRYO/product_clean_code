@@ -1,0 +1,8 @@
+server:
+  grpc:
+    tls: false
+    host:
+    port: 8001
+  app:
+    name: product
+    ip: 127.0.0.1

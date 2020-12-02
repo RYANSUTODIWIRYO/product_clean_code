@@ -48,7 +48,7 @@ func RunServer() {
 	Apply(grpcServer, ctn)
 
 	svcHost := "localhost"
-	svcPort := 8001
+	svcPort := 8080
 
 	go func() {
 		lis, err := net.Listen("tcp", fmt.Sprintf("%s:%d", svcHost, svcPort))

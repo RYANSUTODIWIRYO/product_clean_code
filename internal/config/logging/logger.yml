@@ -1,0 +1,10 @@
+logger:
+  console:
+    enable: ${LOGGER_CONSOLE_ENABLE}
+    json: ${LOGGER_CONSOLE_JSON}
+    level: ${LOGGER_CONSOLE_LEVEL}
+  file:
+    enable: ${LOGGER_FILE_ENABLE}
+    json: ${LOGGER_FILE_JSON}
+    level: ${LOGGER_FILE_LEVEL}
+    path: ${LOGGER_FILE_PATH}

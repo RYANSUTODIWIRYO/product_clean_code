@@ -4,6 +4,7 @@ import (
 	"github.com/product/pkg/adapter/api/grpc/dto"
 	repoDBProduct "github.com/product/pkg/adapter/repository/db"
 	ucProduct "github.com/product/pkg/usecase/product"
+	"github.com/product/internal/config"
 
 	"github.com/sarulabs/di"
 )
@@ -16,11 +17,11 @@ type Container struct {
 // NewContainer :
 func NewContainer() *Container {
 	builder, _ := di.NewBuilder()
-	//conf := cfg.GetConfig()
-	//driver, err := db.NewInstanceDb(conf.Database.Nds.Mysql)
-	//if err != nil {
-	//	panic(fmt.Sprintf("db connection error. %v", err))
-	//}
+	// conf := cfg.GetConfig()
+	// driver, err := db.NewInstanceDb(conf.Database.Nds.Mysql)
+	// if err != nil {
+	// 	panic(fmt.Sprintf("db connection error. %v", err))
+	// }
 
 	//dbDDServiceInstanceDriver, err := db.NewInstanceDb(conf.Database.Ddservice.Mysql)
 	//if err != nil {
@@ -44,7 +45,8 @@ func (c *Container) Resolve(name string) interface{} {
 }
 
 func ProductUseCase(_ di.Container) (interface{}, error) {
-	repoDBProduct := repoDBProduct.NewProductRepo()
+	database := config.GetConfig().Database.Product_DB.MySql
+	repoDBProduct := repoDBProduct.NewProductRepo(database)
 	reportProductDto := &dto.ProductBuilder{}
 	return ucProduct.NewProductInteractor(repoDBProduct, reportProductDto), nil
 }
