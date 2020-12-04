@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package product;
+
+option go_package = ".;product";
+
+import "product.proto";
+
+message CreateProductRequest {
+  product product = 1;
+}
+
+message CreateProductResponse {
+  string  message = 1;
+}
+
+service CreateProductService {
+  rpc CreateProduct(CreateProductRequest) returns (CreateProductResponse);
+}

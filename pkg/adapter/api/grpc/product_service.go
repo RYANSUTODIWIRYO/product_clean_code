@@ -45,7 +45,7 @@ func (s *ProductService) FindProductById(ctx context.Context, req *proto.FindPro
 	// Call Usecase
 	res, err := s.repo.FindProductById(input)
 	if err != nil {
-		return nil, errors.New("Product_Service.FetchProducts : Failed to Fetch Products : " + err.Error())
+		return nil, errors.New("Product_Service.FindProductById : Failed to Fetch Products : " + err.Error())
 	}
 
 	return res.(*proto.FindProductByIdResponse), nil

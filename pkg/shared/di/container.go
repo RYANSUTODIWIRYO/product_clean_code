@@ -4,6 +4,7 @@ import (
 	"github.com/product/pkg/adapter/api/grpc/dto"
 	repoDBProduct "github.com/product/pkg/adapter/repository/db"
 	ucProduct "github.com/product/pkg/usecase/product"
+	ucCreateProduct "github.com/product/pkg/usecase/create_product"
 	"github.com/product/internal/config"
 
 	"github.com/sarulabs/di"
@@ -33,6 +34,7 @@ func NewContainer() *Container {
 
 	_ = builder.Add([]di.Def{
 		{Name: "ProductSvc", Build: ProductUseCase},
+		{Name: "CreateProductSvc", Build: CreateProductUseCase},
 	}...)
 	return &Container{
 		ctn: builder.Build(),
@@ -49,4 +51,11 @@ func ProductUseCase(_ di.Container) (interface{}, error) {
 	repoDBProduct := repoDBProduct.NewProductRepo(database)
 	reportProductDto := &dto.ProductBuilder{}
 	return ucProduct.NewProductInteractor(repoDBProduct, reportProductDto), nil
+}
+
+func CreateProductUseCase(_ di.Container) (interface{}, error) {
+	database := config.GetConfig().Database.Product_DB.MySql
+	repoDBCreateProduct := repoDBProduct.NewCreateProductRepo(database)
+	reportCreateProductDto := &dto.CreateProductBuilder{}
+	return ucCreateProduct.NewCreateProductInteractor(repoDBCreateProduct, reportCreateProductDto), nil
 }

@@ -12,6 +12,7 @@ import (
 	productService "github.com/product/pkg/adapter/api/grpc"
 	productSvc "github.com/product/pkg/infrastructure/grpc/proto/product"
 	ucProduct "github.com/product/pkg/usecase/product"
+	ucCreateProduct "github.com/product/pkg/usecase/create_product"
 
 	container "github.com/product/pkg/shared/di"
 
@@ -72,4 +73,5 @@ func RunServer() {
 // Apply :
 func Apply(server *grpc.Server, ctn *container.Container) {
 	productSvc.RegisterProductServiceServer(server, productService.NewProductService(ctn.Resolve("ProductSvc").(*ucProduct.ProductInteractor)))
+	productSvc.RegisterCreateProductServiceServer(server, productService.NewCreateProductService(ctn.Resolve("CreateProductSvc").(*ucCreateProduct.CreateProductInteractor)))
 }

@@ -96,6 +96,10 @@ func (pr *ProductRepo) FindProductById(data interface{}) (interface{}, error) {
 
 	err = pr.db.Debug().Where("id = ?", request.Id).Find(&res).Error
 
+	if err != nil {
+		return nil, errors.New("Product(Repo).FindProductById: Error query : " + err.Error())
+	}
+
 	out.Product = &entity.Product{
 		Id: res.Id,
 		Name: res.Name,
